@@ -4,7 +4,6 @@ import { loggingMiddleware } from './middleware/logger';
 import { rateLimitMiddleware } from './middleware/rate-limit';
 import { errorHandler } from './middleware/error';
 import routes from './routes';
-import { logger } from './utils/logger';
 
 export const createServer = () => {
   const app = new Hono();
