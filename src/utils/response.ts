@@ -1,11 +1,10 @@
 import { Context } from 'hono';
 import { ApiResponse } from '../types';
-import { StatusCode } from 'hono/utils/http-status';
 
 export const successResponse = <T>(
   c: Context,
   data: T,
-  status: StatusCode = 200
+  status: number = 200
 ): Response => {
   const response: ApiResponse<T> = {
     success: true,
@@ -13,13 +12,13 @@ export const successResponse = <T>(
     timestamp: new Date().toISOString(),
     path: c.req.path,
   };
-  return c.json(response, status);
+  return c.json(response, status as any);
 };
 
 export const errorResponse = (
   c: Context,
   error: string,
-  status: StatusCode = 500
+  status: number = 500
 ): Response => {
   const response: ApiResponse = {
     success: false,
@@ -27,5 +26,5 @@ export const errorResponse = (
     timestamp: new Date().toISOString(),
     path: c.req.path,
   };
-  return c.json(response, status);
+  return c.json(response, status as any);
 };
