@@ -42,6 +42,7 @@ export const rateLimitMiddleware = createMiddleware(async (c, next) => {
 
   record.count += 1;
   await next();
+  return;
 });
 
 setInterval(() => {
