@@ -12,7 +12,7 @@ export default app;
 
 if (process.env.NODE_ENV !== 'production') {
   const port = parseInt(env.PORT);
-  Bun.serve({
+  const server = Bun.serve({
     fetch: app.fetch,
     port,
   });
