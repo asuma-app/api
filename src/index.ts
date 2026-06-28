@@ -1,16 +1,20 @@
-import { createServer } from './server';
-import { env } from './config/env';
-import { logger } from './utils/logger';
+import { createServer } from '../src/server';
+import { env } from '../src/config/env';
+import { logger } from '../src/utils/logger';
+
+if (process.env.NODE_ENV === 'production') {
+  process.env.PORT = '3000';
+}
 
 const app = createServer();
-const port = parseInt(env.PORT);
 
-Bun.serve({
-  fetch: app.fetch,
-  port,
-  hostname: '0.0.0.0',
-});
+export default app;
 
-logger.info(`🚀 Server running on http://localhost:${port}`);
-logger.info(`📚 API Documentation: http://localhost:${port}/api/v1/health`);
-logger.info(`🌍 Environment: ${env.NODE_ENV}`);
+if (process.env.NODE_ENV !== 'production' && typeof Bun !== 'undefined') {
+  const port = parseInt(env.PORT);
+  Bun.serve({
+    fetch: app.fetch,
+    port,
+  });
+  logger.info(`🚀 Server running on http://localhost:${port}`);
+}
